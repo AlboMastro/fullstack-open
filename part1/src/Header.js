@@ -2,7 +2,7 @@ export const Header = (props) => {
     return (
         <>
             <div>
-                <p> This is {props.course} </p>
+                <h1> {props.course} </h1>
             </div>
         </>
     )

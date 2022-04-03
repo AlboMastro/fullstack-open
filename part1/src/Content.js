@@ -2,7 +2,7 @@ export const Part = (props) => {
 	return (
 		<>
 			<p>
-        Part {props.part} has {props.exercise}
+        Part {props.part} has {props.exercise} exercises
       </p>		
 		</>
 	)
