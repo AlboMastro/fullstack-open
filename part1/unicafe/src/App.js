@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import { Board } from './Board'
+import { Button } from './Button'
 
-function App() {
+const App = () => {
+  // save clicks of each button to its own state
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+  const handleGood = () => setGood(good + 1)
+  const handleNeutral = () => setNeutral(neutral + 1)
+  const handleBad = () => setBad(bad + 1)
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1> Give us Feedback! </h1>
+      <Button handleClick={handleGood} text={'Good'} />
+      <Button handleClick={handleNeutral} text={'Neutral'} />
+      <Button handleClick={handleBad} text={'Bad'} />
+      <Board good={good} neutral={neutral} bad={bad} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
