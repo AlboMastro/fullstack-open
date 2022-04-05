@@ -1,4 +1,4 @@
-export const Board = ({good, neutral, bad, total}) => {
+export const Statistics = ({good, neutral, bad, total}) => {
     return (
         <div>
             <h2> Statistics </h2>

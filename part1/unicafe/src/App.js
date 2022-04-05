@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Board } from './Board'
+import { Statistics } from './Statistics'
 import { Button } from './Button'
 
 const App = () => {
@@ -18,7 +18,7 @@ const App = () => {
       <Button handleClick={handleGood} text={'Good'} />
       <Button handleClick={handleNeutral} text={'Neutral'} />
       <Button handleClick={handleBad} text={'Bad'} />
-      <Board good={good} neutral={neutral} bad={bad} total={total}/>
+      <Statistics good={good} neutral={neutral} bad={bad} total={total}/>
     </div>
   )
 }
