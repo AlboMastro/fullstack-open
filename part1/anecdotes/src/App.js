@@ -21,7 +21,7 @@ const App = () => {
     votes[selected] += 1
     return [...votes];
   });
-  
+
   return (
     <>
       <div>
@@ -31,6 +31,12 @@ const App = () => {
       <div>
         <Button handleClick={nextAnecdote} text={"Random anecdote"} />
         <Button handleClick={upvote} text={"Upvote this anecdote"} />
+      </div>
+      <br></br>
+      <h1> Most upvoted </h1>
+      <div>
+        {anecdotes[votes.indexOf(Math.max(...votes))]}
+        <Votes votes={Math.max(...votes)} />
       </div>
     </>
   )
