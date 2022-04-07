@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Button } from './Button'
+import { Votes } from './Votes'
 
 const App = () => {
   const anecdotes = [
@@ -11,15 +12,27 @@ const App = () => {
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients'
   ]
-   
+  // const startingArray = [0, 1, 2, 3, 4, 5, 6];
+  const startingArray = new Uint32Array(7);
   const [selected, setSelected] = useState(0)
-  const nextAnecdote = () => setSelected(Math.floor(Math.random() * 7))
+  const [votes, setVote] = useState(startingArray);
+  const nextAnecdote = () => setSelected(Math.floor(Math.random() * 7));
+  const upvote = () => setVote(() => {
+    votes[selected] += 1
+    return [...votes];
+  });
+  
   return (
-    <div>
-      {anecdotes[selected]}
-      <br></br>
-      <Button handleClick={nextAnecdote} text={"Random anecdote"} />
-    </div>
+    <>
+      <div>
+        {anecdotes[selected]}
+        <Votes votes={votes[selected]} />
+      </div>
+      <div>
+        <Button handleClick={nextAnecdote} text={"Random anecdote"} />
+        <Button handleClick={upvote} text={"Upvote this anecdote"} />
+      </div>
+    </>
   )
 }
 
