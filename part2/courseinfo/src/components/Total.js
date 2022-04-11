@@ -1,1 +1,4 @@
-export const Total = ({ sum }) => <p>Number of exercises {sum}</p>
+export const Total = ({ courseinfo }) => 
+<p>Number of exercises 
+     {courseinfo.map(parts => parts.exercises).reduce((x, y) => x + y)}
+</p>;
