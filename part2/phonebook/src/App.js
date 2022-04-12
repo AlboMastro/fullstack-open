@@ -6,8 +6,15 @@ const App = () => {
 
   const addNewName = (event) => {
     event.preventDefault()
+    
+    if (persons.map(p => p.name).includes(newName)) {
+      alert(`${newName} is already registered`) 
+    } else {
     setPersons(persons.concat(nameObj))
     setNewName('')
+    console.log(persons);
+    }
+    
   }
 
   const handleNameChange = (event) => {
@@ -15,9 +22,9 @@ const App = () => {
   }
 
   const nameObj = {
-    name: newName
+    name: newName,
   }
-  
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -30,8 +37,8 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      <ul>
-        {persons.map(person => 
+      <ul> 
+        { persons.map(person => 
           <li key={person.name}> {person.name} </li>  
         )}
       </ul>
