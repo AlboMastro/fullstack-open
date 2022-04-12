@@ -1,12 +1,12 @@
 import { useState } from 'react'
 
 const App = () => {
-  const [persons, setPersons] = useState([]) 
+  const [persons, setPersons] = useState([{ name: 'Arto Hellas' }]) 
   const [newName, setNewName] = useState('')
 
   const addNewName = (event) => {
     event.preventDefault()
-    setPersons(persons.concat(newName))
+    setPersons(persons.concat(nameObj))
     setNewName('')
   }
 
@@ -14,6 +14,10 @@ const App = () => {
     setNewName(event.target.value)
   }
 
+  const nameObj = {
+    name: newName
+  }
+  
   return (
     <div>
       <h2>Phonebook</h2>
@@ -28,7 +32,7 @@ const App = () => {
       <h2>Numbers</h2>
       <ul>
         {persons.map(person => 
-          <li key={person}> {person} </li>  
+          <li key={person.name}> {person.name} </li>  
         )}
       </ul>
     </div>
