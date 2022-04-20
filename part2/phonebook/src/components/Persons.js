@@ -5,7 +5,7 @@ export const Persons = ({filterKey, deletefunc}) => {
         {filterKey.map(
           (person) => (
             <li key={person.name}>
-              {person.name} {person.number} <button onClick={() => {deletefunc(person.id)}}> Delete </button>
+              {person.name} {person.number} <button onClick={() => {deletefunc(person.id, person.name)}}> Delete </button>
             </li>
           )
         )}

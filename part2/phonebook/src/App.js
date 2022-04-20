@@ -54,13 +54,15 @@ const App = () => {
     });
   }, [])
 
-  const handleDelete = (id) => {
-    if (window.alert(`Do you want to delete the user ${id}?`)) {
-      console.log('WORK')
-      Phoneservices
-      .deletePerson(id)
-      .then(setPersons(persons.filter(person => person.id !== id)))
-      } 
+  const handleDelete = (id, name) => {
+    console.table(persons)
+    if (window.confirm(`Are you sure you want to delete ${name}?`)) {
+      const deletedPeople = persons.filter(person => person.id !== id)
+        Phoneservices
+        .deletePerson(id)
+        .then(setPersons(deletedPeople))
+        .then(setNewFilter(deletedPeople));
+    }
   }
 
   const filterSearch = (search) => persons.filter((f) => f.name.includes(search));
