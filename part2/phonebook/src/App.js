@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Filter } from './components/Filter'
 import { Persons } from './components/Persons'
 import { PersonForm } from './components/PersonForm'
-import axios from 'axios'
+import Phoneservices from './services/PhonebookServices'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -34,21 +34,34 @@ const App = () => {
     if (persons.map(p => p.name).includes(newName)) {
       alert(`${newName} is already registered`)
     } else {
-      setPersons(persons.concat(personObj));
-      setNewName('')
-      setNewNumber('')
+        Phoneservices
+        .addPerson(personObj)
+        .then(person => {
+          console.log('Data sent to server');
+          setPersons(persons.concat(person));
+          setNewName('')
+          setNewNumber('')
+      })
     }
   }
-
   useEffect(() => {
-    console.log('effect loaded')
-    axios
-    .get('http://localhost:3001/persons')
-    .then(response => {
-      console.log('I am a promise')
-      setPersons(response.data)
+    console.log('Effect loaded')
+    Phoneservices
+      .getPersons()
+      .then(persons => {
+        console.log('Data fetched')
+        setPersons(persons)
     });
   }, [])
+
+  const handleDelete = (id) => {
+    if (window.alert(`Do you want to delete the user ${id}?`)) {
+      console.log('WORK')
+      Phoneservices
+      .deletePerson(id)
+      .then(setPersons(persons.filter(person => person.id !== id)))
+      } 
+  }
 
   const filterSearch = (search) => persons.filter((f) => f.name.includes(search));
 
@@ -64,7 +77,7 @@ const App = () => {
         numberHandler={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <Persons filterKey={filterKey} />
+      <Persons filterKey={filterKey} deletefunc={handleDelete} />
     </div>
   )
 }
