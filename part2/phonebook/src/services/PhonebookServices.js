@@ -16,6 +16,11 @@ const deletePerson = id => {
   return request.then(response => response.data)
 }
 
-const Phoneservices = { getPersons, addPerson, deletePerson }
+const replacePerson = (id, personObj) => {
+  const request = axios.put(`${phoneURL}/${id}`, personObj)
+  return request.then(response => response.data)
+}
+
+const Phoneservices = { getPersons, addPerson, deletePerson, replacePerson }
 
 export default Phoneservices

@@ -30,20 +30,23 @@ const App = () => {
 
   const addNewName = (event) => {
     event.preventDefault()
-
-    if (persons.map(p => p.name).includes(newName)) {
-      alert(`${newName} is already registered`)
+    const isPersonAdded = persons.map(p => p.name).includes(newName);
+  
+    if (isPersonAdded) {
+      handleChange();
     } else {
         Phoneservices
         .addPerson(personObj)
         .then(person => {
           console.log('Data sent to server');
           setPersons(persons.concat(person));
+          setNewFilter(persons.concat(person));
           setNewName('')
           setNewNumber('')
       })
     }
   }
+  
   useEffect(() => {
     console.log('Effect loaded')
     Phoneservices
@@ -55,7 +58,6 @@ const App = () => {
   }, [])
 
   const handleDelete = (id, name) => {
-    console.table(persons)
     if (window.confirm(`Are you sure you want to delete ${name}?`)) {
       const deletedPeople = persons.filter(person => person.id !== id)
         Phoneservices
@@ -63,6 +65,14 @@ const App = () => {
         .then(setPersons(deletedPeople))
         .then(setNewFilter(deletedPeople));
     }
+  }
+
+  const handleChange = () => {
+    const existingPerson = persons.find(p => p.name == newName);
+    if (window.confirm(`You are about to change ${existingPerson.name}'s number. Are you sure?`)) {
+      Phoneservices
+      .replacePerson(existingPerson.id, personObj)
+    } 
   }
 
   const filterSearch = (search) => persons.filter((f) => f.name.includes(search));
