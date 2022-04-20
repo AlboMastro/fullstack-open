@@ -68,7 +68,7 @@ const App = () => {
   }
 
   const handleChange = () => {
-    const existingPerson = persons.find(p => p.name == newName);
+    const existingPerson = persons.find(p => p.name === newName);
     if (window.confirm(`You are about to change ${existingPerson.name}'s number. Are you sure?`)) {
       Phoneservices
       .replacePerson(existingPerson.id, personObj)
