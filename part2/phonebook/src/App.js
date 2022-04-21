@@ -58,6 +58,8 @@ const App = () => {
   }, [])
 
   const handleDelete = (id, name) => {
+
+    
     if (window.confirm(`Are you sure you want to delete ${name}?`)) {
       const deletedPeople = persons.filter(person => person.id !== id)
         Phoneservices
@@ -68,10 +70,14 @@ const App = () => {
   }
 
   const handleChange = () => {
+    const changedPeople = persons.filter(p => p.number !== newNumber)
     const existingPerson = persons.find(p => p.name === newName);
+
     if (window.confirm(`You are about to change ${existingPerson.name}'s number. Are you sure?`)) {
       Phoneservices
       .replacePerson(existingPerson.id, personObj)
+      .then(setPersons(changedPeople))
+      .then(setNewFilter(changedPeople));
     } 
   }
 
