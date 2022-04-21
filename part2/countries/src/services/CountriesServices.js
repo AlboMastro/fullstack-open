@@ -5,4 +5,6 @@ const getCountries = () => {
     return request.then(response => response.data)
 }
 
-export default { getCountries }
+const countryServ = { getCountries }
+
+export default countryServ 
