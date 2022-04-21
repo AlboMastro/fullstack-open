@@ -9,7 +9,7 @@ const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
-  const [filterKey, setNewFilter] = useState('')
+  const [filterKey, setNewFilter] = useState([])
 
   const personObj = {
     name: newName,
