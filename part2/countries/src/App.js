@@ -20,7 +20,6 @@ function App() {
     
     const searchCountry = (search) => countries.filter((f) => f.name.common.includes(search));
     setSearchResult(searchCountry(event.target.value))
-    console.log(searchResult)
   }
 
   

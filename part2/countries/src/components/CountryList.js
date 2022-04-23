@@ -8,11 +8,13 @@ export const CountryList = ({ searchResult }) => {
                  <div key={country.name.common}>
                     <h1> {country.name.official} </h1>
                     <p> Capital: {country.capital} </p>
-                    <p> Population: {country.population} </p>
+                    <p> Area: {country.area} </p>
                     <h3> Languages </h3>
-                    {/* <ul>
-                        <li> {country.languages.ita} </li>
-                    </ul> */}
+                    <ul>
+                        {(Object.values(country.languages)).map(lang => (
+                          <li key={lang}> {lang} </li>
+                        ))} 
+                    </ul>
                     <img src={country.flags.png} alt="Flag"></img>
                  </div>
              ))} 
