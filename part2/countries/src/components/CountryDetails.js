@@ -1,6 +1,6 @@
 import { WeatherWidget } from "./WeatherWidget";
 
-export const CountryDetails = ({ country, weather }) => {
+export const CountryDetails = ({ country }) => {
     return (
       <>
         <h1> {country.name.official} </h1>
@@ -13,7 +13,8 @@ export const CountryDetails = ({ country, weather }) => {
             <li key={lang}> {lang} </li>
           ))}
         </ul>
-        <WeatherWidget weather={weather} />
+        <WeatherWidget country={country}/>
       </>
     );
 }
+

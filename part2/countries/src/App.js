@@ -6,22 +6,18 @@ import { CountryList } from './components/CountryList'
 function App() {
   const [countries, setNewCountries] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
-  const [weather, setWeather] = useState({});
 
+  
+  
   useEffect(() => {
     countryServ
     .getCountries()
     .then(countries => {
       setNewCountries(countries)
+      console.log(countries)
     });
+    
   }, []) 
-
-  const key = 'f8e2dbfecfc3bc00bff5a4ec8864d485'
-  countryServ
-  .getWeather(-12, -77, key)
-  .then(weather => {
-    setWeather(weather)
-  });
 
   const handleSearch = (event) => {
     event.preventDefault()
@@ -35,7 +31,7 @@ function App() {
    <form> 
      Search for a country: <input onChange={handleSearch}></input>
    </form>
-   <CountryList searchResult={searchResult} weather={weather}/>
+   <CountryList searchResult={searchResult} />
   </>
   );
 }
