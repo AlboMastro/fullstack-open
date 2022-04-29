@@ -4,12 +4,14 @@ import { Filter } from './components/Filter'
 import { Persons } from './components/Persons'
 import { PersonForm } from './components/PersonForm'
 import Phoneservices from './services/PhonebookServices'
+import { Notification } from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filterKey, setNewFilter] = useState([])
+  const [message, setMessage] = useState ('')
 
   const personObj = {
     name: newName,
@@ -43,6 +45,7 @@ const App = () => {
           setNewFilter(persons.concat(person));
           setNewName('')
           setNewNumber('')
+          handleMessage(`Added ${person.name}`)
       })
     }
   }
@@ -75,6 +78,7 @@ const App = () => {
     if (window.confirm(`You are about to change ${existingPerson.name}'s number. Are you sure?`)) {
       Phoneservices
       .replacePerson(existingPerson.id, personObj)
+      .then(handleMessage(`Changed ${existingPerson.name}'s number`))
       .then((result) => {
         if (result.status !== 200) {
           return;
@@ -87,11 +91,19 @@ const App = () => {
     } 
   }
 
+  const handleMessage = (msg) => {
+    setMessage(msg)
+    setTimeout(() => {
+      setMessage(null)
+    }, 3000)
+  }
+
   const filterSearch = (search) => persons.filter((f) => f.name.includes(search));
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} />
       <Filter handler={handleFilterChanges} />
       <PersonForm
         onSubmit={addNewName}
