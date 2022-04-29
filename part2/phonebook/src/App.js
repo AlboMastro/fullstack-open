@@ -6,12 +6,24 @@ import { PersonForm } from './components/PersonForm'
 import Phoneservices from './services/PhonebookServices'
 import { Notification } from './components/Notification'
 
+
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filterKey, setNewFilter] = useState([])
   const [message, setMessage] = useState ('')
+  const [color, setColor] = useState ('')
+
+  const Notifstyle = {
+    color : color,
+    background: `lightgrey`,
+    fontSize: `20px`,
+    borderStyle: `solid`,
+    borderRadius: `5px`,
+    padding: `10px`,
+    marginBottom: `10px`,
+}
 
   const personObj = {
     name: newName,
@@ -45,7 +57,7 @@ const App = () => {
           setNewFilter(persons.concat(person));
           setNewName('')
           setNewNumber('')
-          handleMessage(`Added ${person.name}`)
+          handleMessage('green',`Added ${person.name}`)
       })
     }
   }
@@ -62,7 +74,6 @@ const App = () => {
 
   const handleDelete = (id, name) => {
 
-    
     if (window.confirm(`Are you sure you want to delete ${name}?`)) {
       const deletedPeople = persons.filter(person => person.id !== id)
         Phoneservices
@@ -78,20 +89,24 @@ const App = () => {
     if (window.confirm(`You are about to change ${existingPerson.name}'s number. Are you sure?`)) {
       Phoneservices
       .replacePerson(existingPerson.id, personObj)
-      .then(handleMessage(`Changed ${existingPerson.name}'s number`))
       .then((result) => {
         if (result.status !== 200) {
           return;
         } else if (result.status === 200) {
           return Phoneservices.getPersons().then((response) => {
             setNewFilter(response)
+            handleMessage('blue',`Changed ${existingPerson.name}'s number`)
           });
         }
-      });
+      })
+      .catch(() => {
+        handleMessage('red',` ${existingPerson.name} was deleted!`)
+      })
     } 
   }
 
-  const handleMessage = (msg) => {
+  const handleMessage = (clr, msg) => {
+    setColor(clr)
     setMessage(msg)
     setTimeout(() => {
       setMessage(null)
@@ -103,7 +118,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={message} />
+      <Notification message={message} style={Notifstyle} />
       <Filter handler={handleFilterChanges} />
       <PersonForm
         onSubmit={addNewName}
