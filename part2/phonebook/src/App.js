@@ -70,14 +70,20 @@ const App = () => {
   }
 
   const handleChange = () => {
-    const changedPeople = persons.filter(p => p.number !== newNumber)
-    const existingPerson = persons.find(p => p.name === newName);
+  const existingPerson = persons.find(p => p.name === newName);
 
     if (window.confirm(`You are about to change ${existingPerson.name}'s number. Are you sure?`)) {
       Phoneservices
       .replacePerson(existingPerson.id, personObj)
-      .then(setPersons(changedPeople))
-      .then(setNewFilter(changedPeople));
+      .then((result) => {
+        if (result.status !== 200) {
+          return;
+        } else if (result.status === 200) {
+          return Phoneservices.getPersons().then((response) => {
+            setNewFilter(response)
+          });
+        }
+      });
     } 
   }
 

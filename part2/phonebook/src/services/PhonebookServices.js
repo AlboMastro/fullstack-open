@@ -17,8 +17,7 @@ const deletePerson = id => {
 }
 
 const replacePerson = (id, personObj) => {
-  const request = axios.put(`${phoneURL}/${id}`, personObj)
-  return request.then(response => response.data)
+  return axios.put(`${phoneURL}/${id}`, personObj)
 }
 
 const Phoneservices = { getPersons, addPerson, deletePerson, replacePerson }
