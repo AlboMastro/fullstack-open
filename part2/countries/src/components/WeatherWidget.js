@@ -19,7 +19,6 @@ export const WeatherWidget = ({ country }) => {
         <>
           <p> Temperature in {country.name.common} is currently: {weather.main?.temp} degrees Celsius </p>
           <p> Wind is {weather.wind?.speed} m/s </p>
-          {/* <img src={`http://openweathermap.org/img/wn/${weather.weather[0]?.icon}.png`} alt="Weather Icon"></img> */}
         </>
     )
 }
